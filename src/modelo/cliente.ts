@@ -37,20 +37,28 @@ export default class Cliente {
     public get getTelefones(): Array<Telefone> {
         return this.telefones
     }
-    public get getProdutosConsumidos(): Array<Produto> {
-        return this.produtosConsumidos
+    public get getProdutosConsumidos(): string[] {
+        return this.produtosConsumidos.map(produto => produto.nome);
     }
-    public get getServicosConsumidos(): Array<Servico> {
-        return this.servicosConsumidos
+    public get getServicosConsumidos(): string[] {
+        return this.servicosConsumidos.map(servico => servico.nome)
     }
 
 
-    public registrarVenda(produto: Produto, quantidadeVendida: number): void {
+    public registrarVendaProduto(produto: Produto, quantidadeVendida: number): void {
         if (!this.produtosConsumidos.includes(produto)) {
             this.produtosConsumidos.push(produto);
         }
     
         produto.adicionarVenda(quantidadeVendida);
+    }
+
+    public registrarVendaServico(servico: Servico): void{
+        if(!this.servicosConsumidos.includes(servico)) {
+            this.servicosConsumidos.push(servico);
+        }
+
+        servico.adicionarVenda();
     }
     
 }

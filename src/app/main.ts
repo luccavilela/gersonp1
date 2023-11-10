@@ -14,6 +14,7 @@ import AtualizarServico from "../negocio/atualizarServico";
 import DeletarProduto from "../negocio/deletarProduto";
 import DeletarServico from "../negocio/deletarServico";
 import RegistrarVendaProdutos from "../negocio/registrarVendaProduto";
+import RegistrarVendaServico from "../negocio/registrarVendaServico";
 
 
  
@@ -99,6 +100,10 @@ while (execucao) {
         case 14:
             let registrarVendaProduto = new RegistrarVendaProdutos(empresa.getClientes, empresa.getProdutos)
             registrarVendaProduto.cadastrar()
+            break;
+        case 15:
+            let registrarVendaServico = new RegistrarVendaServico(empresa.getClientes, empresa.getServicos)
+            registrarVendaServico.cadastrar()
             break;
         case 0:
             execucao = false

@@ -27,6 +27,7 @@ export default class ListagemClientesPorGenero extends Listagem {
                 console.log(`Nome social: ` + cliente.nomeSocial);
                 console.log(`CPF: ` + cliente.getCpf.getValor);
                 console.log(`Gênero: ` + cliente.genero);
+                console.log(`Produtos comprados: ` + cliente.getProdutosConsumidos)
                 console.log(`--------------------------------------`);
             });
         }

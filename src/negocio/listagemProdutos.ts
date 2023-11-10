@@ -13,6 +13,7 @@ export default class ListagemProdutos extends Listagem{
             console.log(`Nome: ` + produto.nome);
             console.log(`Valor: R$ ${produto.valor.toFixed(2)}`);
             console.log(`Quantidades vendidas: ` + produto.getquantidadeVendas);
+            console.log(`Valor total de vendas do produto:  R$ ${produto.getvalorVendas.toFixed(2)}`)
             console.log(`--------------------------------------`);
         });
     }
