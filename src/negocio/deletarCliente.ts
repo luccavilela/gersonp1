@@ -13,13 +13,14 @@ export default class DeletarCliente extends Deletar{
     }
 
     public deletar() {
-        let nomeCliente = this.entrada.receberTexto(`Por favor informe o nome do cliente a ser deletado: `)
-        const index = this.clientes.findIndex(produto => produto.nome === nomeCliente);
+        let valorCpfCliente = this.entrada.receberTexto(`Por favor informe o cpf do cliente a ser deletado: `);
+        const index = this.clientes.findIndex(cliente => cliente.getCpf.getValor === valorCpfCliente);
+    
         if (index !== -1) {
             this.clientes.splice(index, 1);
-            console.log(`Cliente "${nomeCliente}" foi excluído com sucesso.`);
+            console.log(`Cliente excluído com sucesso.`);
         } else {
-            console.log(`Cliente "${nomeCliente}" não encontrado.`);
+            console.log(`Cliente com o cpf "${valorCpfCliente}" não encontrado.`);
         }
     }
 }

@@ -2,6 +2,7 @@ import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
 import CPF from "../modelo/cpf";
 import Cadastro from "./cadastro";
+import RG from "../modelo/rg";
 
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>
@@ -19,14 +20,27 @@ export default class CadastroCliente extends Cadastro {
         let nomeSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `)
 
         let valor: string;
-        do {
+        valor = this.entrada.receberTexto(`Por favor informe o número do cpf (11 dígitos): `);
+
+        
+        while (!this.validarCPF(valor) || this.cpfExistente(valor)) {
+            if (this.cpfExistente(valor)) {
+                console.log(`Erro: CPF já cadastrado. Informe um CPF diferente.`);
+            } else {
+                console.log(`Erro: CPF inválido. Informe um CPF com 11 dígitos numéricos.`);
+            }
             valor = this.entrada.receberTexto(`Por favor informe o número do cpf (11 dígitos): `);
-        } while (!this.validarCPF(valor));
+        }
+    
+
 
         let data: string;
         do {
             data = this.entrada.receberTexto(`Por favor informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
         } while (!this.validarData(data));
+
+
+        
 
         let partesData = data.split('/')
         let ano = new Number(partesData[2].valueOf()).valueOf()
@@ -36,20 +50,72 @@ export default class CadastroCliente extends Cadastro {
 
         let cpf = new CPF(valor, dataEmissao);
 
+
+       
+        const rgs: RG[] = [];
+        const rgsDigitados: string[] = [];
+        let cadastrarRG: boolean;
+        do {
+            let valorRG: string;
+            do {
+                valorRG = this.entrada.receberTexto(`Por favor informe o número do RG: `);
+            
+                if (this.rgExistente(valorRG) || rgsDigitados.includes(valorRG)) {
+                    console.log(`Erro: RG já cadastrado. Informe um RG diferente.`);
+                } else if (!this.validarRG(valorRG)) {
+                    console.log(`Erro: O valor do RG deve conter apenas números.`);
+                }
+            } while (this.rgExistente(valorRG) || rgsDigitados.includes(valorRG) || !this.validarRG(valorRG));
+            
+
+            rgsDigitados.push(valorRG);
+
+    
+            let dataEmissaoRG: string;
+            do {
+                dataEmissaoRG = this.entrada.receberTexto(`Por favor informe a data de emissão do RG, no padrão dd/mm/yyyy: `);
+            } while (!this.validarData(dataEmissaoRG));
+    
+            let partesDataRG = dataEmissaoRG.split('/');
+            let anoRG = new Number(partesDataRG[2].valueOf()).valueOf();
+            let mesRG = new Number(partesDataRG[1].valueOf()).valueOf();
+            let diaRG = new Number(partesDataRG[0].valueOf()).valueOf();
+            let dataEmissaoRGObj = new Date(anoRG, mesRG, diaRG);
+            
+            let rg = new RG(valorRG, dataEmissaoRGObj);
+            rgs.push(rg);
+    
+           
+            cadastrarRG = this.entrada.receberTexto(`Deseja cadastrar outro RG? (S/N): `).toUpperCase() === 'S';
+        } while (cadastrarRG);
+
+
+
+
+        
         let genero: 'Masculino' | 'Feminino';
         do {
             genero = this.entrada.receberTexto(`Por favor informe o gênero (Masculino/Feminino): `) as 'Masculino' | 'Feminino';
         } while (!this.validarGenero(genero));
 
-        let cliente = new Cliente(nome, nomeSocial, cpf, genero);
+        let quantidadeConsumidos = 0
+        let valorConsumidos = 0
+
+        let cliente = new Cliente(nome, nomeSocial, cpf, genero, quantidadeConsumidos, valorConsumidos);
+        cliente.adicionarRgs(rgs);
         this.clientes.push(cliente);
         console.log(`\nCadastro concluído :)`);
     }
 
     private validarCPF(cpf: string): boolean {
         const regex = /^[0-9]{11}$/;
-        return regex.test(cpf);
+        return regex.test(cpf) && !this.cpfExistente(cpf);
     }
+
+    private cpfExistente(cpf: string): boolean {
+        return this.clientes.some(cliente => cliente.getCpf.getValor === cpf);
+    }
+
 
     private validarGenero(genero: string): boolean {
         return genero === 'Masculino' || genero === 'Feminino';
@@ -90,4 +156,14 @@ export default class CadastroCliente extends Cadastro {
     
         return true;
     }
+
+    private validarRG(rg: string): boolean {
+        const regex = /^\d+$/;
+        return regex.test(rg) && !this.rgExistente(rg);
+    }
+
+    private rgExistente(rg: string): boolean {
+        return this.clientes.some(cliente => cliente.getRgs.some(clienteRg => clienteRg.getValor === rg));
+    }
+
 }

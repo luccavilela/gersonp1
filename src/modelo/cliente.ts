@@ -14,7 +14,9 @@ export default class Cliente {
     private telefones: Array<Telefone>
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
-    constructor(nome: string, nomeSocial: string, cpf: CPF, genero: 'Masculino' | 'Feminino') {
+    private quantidadeConsumidos: number
+    private valorConsumidos: number
+    constructor(nome: string, nomeSocial: string, cpf: CPF, genero: 'Masculino' | 'Feminino', quantidadeConsumidos: number, valorConsumidos: number) {
         this.nome = nome
         this.nomeSocial = nomeSocial
         this.genero = genero
@@ -24,6 +26,8 @@ export default class Cliente {
         this.telefones = []
         this.produtosConsumidos = []
         this.servicosConsumidos = []
+        this.quantidadeConsumidos = quantidadeConsumidos
+        this.valorConsumidos = valorConsumidos
     }
     public get getCpf(): CPF {
         return this.cpf
@@ -43,13 +47,21 @@ export default class Cliente {
     public get getServicosConsumidos(): string[] {
         return this.servicosConsumidos.map(servico => servico.nome)
     }
+    public get getQuantidadeConsumidos(): number {
+        return this.quantidadeConsumidos
+    }
+    public get getValorConsumidos(): number {
+        return this.valorConsumidos
+    }
 
 
     public registrarVendaProduto(produto: Produto, quantidadeVendida: number): void {
         if (!this.produtosConsumidos.includes(produto)) {
             this.produtosConsumidos.push(produto);
         }
-    
+        
+        this.quantidadeConsumidos = this.quantidadeConsumidos + quantidadeVendida
+        this.valorConsumidos = this.valorConsumidos + produto.valor * quantidadeVendida 
         produto.adicionarVenda(quantidadeVendida);
     }
 
@@ -58,7 +70,18 @@ export default class Cliente {
             this.servicosConsumidos.push(servico);
         }
 
+        this.quantidadeConsumidos = this.quantidadeConsumidos + 1
+        this.valorConsumidos = this.valorConsumidos + servico.valor
+
         servico.adicionarVenda();
     }
+
+
+    public adicionarRgs(rgs: RG[]): void {
+        rgs.forEach((rg) => {
+            this.rgs.push(rg);
+        });
+    }
+    
     
 }
