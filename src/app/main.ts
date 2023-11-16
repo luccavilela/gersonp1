@@ -15,6 +15,8 @@ import DeletarProduto from "../negocio/deletarProduto";
 import DeletarServico from "../negocio/deletarServico";
 import RegistrarVendaProdutos from "../negocio/registrarVendaProduto";
 import RegistrarVendaServico from "../negocio/registrarVendaServico";
+import ListagemClientesMaisConsumo from "../negocio/listagemClientesMaisConsumo";
+import ListagemClientesMenosConsumo from "../negocio/listagemClientesMenosConsumo";
 
 
  
@@ -39,6 +41,10 @@ while (execucao) {
     console.log(`13 - Listar clientes por gênero`);
     console.log(`14 - Registrar venda de produto`);
     console.log(`15 - Registrar venda de serviço`);
+    console.log(`15 - Registrar venda de serviço`);
+    console.log(`16 - Listar clientes que mais consumiram produtos ou serviços em quantidade`);
+    console.log(`17 - Listar clientes que menos consumiram produtos ou serviços em quantidade`);
+
     console.log(`0 - Sair`);
  
     let entrada = new Entrada()
@@ -104,6 +110,14 @@ while (execucao) {
         case 15:
             let registrarVendaServico = new RegistrarVendaServico(empresa.getClientes, empresa.getServicos)
             registrarVendaServico.cadastrar()
+            break;
+        case 16:
+            let listagemClientesMaisConsumo = new ListagemClientesMaisConsumo(empresa.getClientes)
+            listagemClientesMaisConsumo.listar()
+            break;
+        case 17:
+            let listagemClientesMenosConsumo = new ListagemClientesMenosConsumo(empresa.getClientes)
+            listagemClientesMenosConsumo.listar()
             break;
         case 0:
             execucao = false
