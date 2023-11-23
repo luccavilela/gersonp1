@@ -33,6 +33,13 @@ export default class ListagemClientesPorGenero extends Listagem {
                         console.log(`RG "${rg.getValor}" `);
                     });
                 }
+                const telefones = cliente.getTelefones;
+            if (telefones.length > 0) {
+                console.log(`Telefones: `);
+                telefones.forEach(telefone => {
+                    console.log(`Telefone com DDD: ${telefone.getDdd}, Número: ${telefone.getNumero}`);
+                });
+            }
                 console.log(`Gênero: ` + cliente.genero);
                 console.log(`Produtos comprados: ` + cliente.getProdutosConsumidos)
                 console.log(`Quantidade de serviços ou produtos consumidos: ` + cliente.getQuantidadeConsumidos)

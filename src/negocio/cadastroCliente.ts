@@ -3,6 +3,7 @@ import Cliente from "../modelo/cliente";
 import CPF from "../modelo/cpf";
 import Cadastro from "./cadastro";
 import RG from "../modelo/rg";
+import Telefone from "../modelo/telefone";
 
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>
@@ -91,6 +92,30 @@ export default class CadastroCliente extends Cadastro {
 
 
 
+        const telefones: Telefone[] = [];
+        const telefonesDigitados: string[] = [];
+        let cadastrarTelefone: boolean;
+        do {
+            let ddd: string;
+            let numero: string;
+            do {
+                ddd = this.entrada.receberTexto(`Por favor informe o DDD do telefone: `);
+                numero = this.entrada.receberTexto(`Por favor informe o número do telefone: `);
+                const telefoneString = ddd + numero;
+                if (telefonesDigitados.includes(telefoneString) || this.telefoneExistente(numero)) {
+                    console.log(`Erro: Este telefone já foi cadastrado ou está associado a outro cliente. Informe um telefone diferente.`);
+                } else if (!this.validarTelefone(ddd, numero)) {
+                    console.log(`Erro: O telefone deve conter apenas números.`);
+                }
+            } while (telefonesDigitados.includes(ddd + numero) || !this.validarTelefone(ddd, numero) || this.telefoneExistente(numero));
+            
+            telefonesDigitados.push(ddd + numero);
+            
+            const telefone = new Telefone(ddd, numero);
+            telefones.push(telefone);
+            
+            cadastrarTelefone = this.entrada.receberTexto(`Deseja cadastrar outro telefone? (S/N): `).toUpperCase() === 'S';
+        } while (cadastrarTelefone);
 
         
         let genero: 'Masculino' | 'Feminino';
@@ -103,6 +128,7 @@ export default class CadastroCliente extends Cadastro {
 
         let cliente = new Cliente(nome, nomeSocial, cpf, genero, quantidadeConsumidos, valorConsumidos);
         cliente.adicionarRgs(rgs);
+        cliente.adicionarTelefones(telefones);
         this.clientes.push(cliente);
         console.log(`\nCadastro concluído :)`);
     }
@@ -166,4 +192,18 @@ export default class CadastroCliente extends Cadastro {
         return this.clientes.some(cliente => cliente.getRgs.some(clienteRg => clienteRg.getValor === rg));
     }
 
+
+    private validarTelefone(ddd: string, numero: string): boolean {
+        const regex = /^\d+$/;
+        return regex.test(ddd) && regex.test(numero);
+    }
+    
+    private telefoneExistente(numero: string): boolean {
+        return this.clientes.some(cliente => cliente.getTelefones.some(clienteTelefone => clienteTelefone.getNumero === numero));
+    }
+    
+
 }
+
+
+//asidopfhadsogfhd8aufoiasdgfuiafa

@@ -42,10 +42,11 @@ while (execucao) {
     console.log(`13 - Listar clientes por gênero`);
     console.log(`14 - Registrar venda de produto`);
     console.log(`15 - Registrar venda de serviço`);
-    console.log(`15 - Registrar venda de serviço`);
     console.log(`16 - Listar os dez clientes que mais consumiram produtos ou serviços em quantidade`);
     console.log(`17 - Listar os dez clientes que menos consumiram produtos ou serviços em quantidade`);
-    console.log(`18 - Listar os cinco clientes que mais gastaram`);
+    console.log(`18 - Listar os cinco clientes que mais consumiram em valor`);
+    console.log(`19 - Listar os produtos mais consumidos.`);
+    console.log(`20 - Listar os serviços mais comprados.`);
 
     console.log(`0 - Sair`);
  

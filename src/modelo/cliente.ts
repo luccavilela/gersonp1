@@ -83,5 +83,13 @@ export default class Cliente {
         });
     }
     
+
+
+
+    public adicionarTelefones(telefones: Telefone[]): void {
+        telefones.forEach((telefone) => {
+            this.telefones.push(telefone)
+        })
+    }
     
 }
