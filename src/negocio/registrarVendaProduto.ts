@@ -24,9 +24,18 @@ export default class RegistrarVendaProdutos extends Cadastro {
             const produto = this.produtos.find(produto => produto.nome === nomeProduto);
 
             if (produto) {
-                let quantidadeVendida = this.entrada.receberNumero(`Por favor informe a quantidade vendida do produto: `);
-
+                let quantidadeVendida = 0
+                while (quantidadeVendida <= 0) {
+                    quantidadeVendida = this.entrada.receberNumero(`Por favor informe a quantidade vendida do produto : `);
+                }
+                console.log(cliente.genero)
                 cliente.registrarVendaProduto(produto, quantidadeVendida);
+                if (cliente.genero === 'Masculino') {
+                    produto.adicionarVendaMasculino(quantidadeVendida)
+                }else{
+                    produto.adicionarVendaFeminino(quantidadeVendida)
+                }
+                
 
                 console.log(`Venda registrada com sucesso para o cliente "${cliente.nome}".`);
             } else {

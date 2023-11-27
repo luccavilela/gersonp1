@@ -25,6 +25,11 @@ export default class RegistrarVendaServico extends Cadastro {
 
             if (servico){
                 cliente.registrarVendaServico(servico)
+                if (cliente.genero === 'Masculino') {
+                    servico.adicionarVendaMasculino()
+                }else{
+                    servico.adicionarVendaFeminino()
+                }
 
                 console.log(`Venda registrada com sucesso para o cliente "${cliente.nome}".`);
             } else {

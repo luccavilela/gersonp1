@@ -13,6 +13,8 @@ export default class ListagemServicos extends Listagem{
             console.log(`Nome: ` + servico.nome);
             console.log(`Valor: R$ ${servico.valor.toFixed(2)}`);
             console.log(`Quantidade de vezes em que o serviço foi prestado: ` + servico.getservicosPrestados);
+            console.log(`Vendas por público Masculino: ` + servico.getquantidadeVendasMasculino)
+            console.log(`Vendas por público Feminino: ` + servico.getquantidadeVendasFeminino)
             console.log(`Valor total de vendas do serviço: R$ ${servico.getvalorVendas.toFixed(2)}`)
             console.log(`--------------------------------------`);
         });
