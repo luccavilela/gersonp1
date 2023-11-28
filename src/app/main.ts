@@ -20,6 +20,7 @@ import ListagemClientesMenosConsumo from "../negocio/listagemClientesMenosConsum
 import ListagemClientesMaisGasto from "../negocio/listagemClientesMaisGasto";
 import ListagemProdutosMaisVendidos from "../negocio/listagemProdutosMaisVendidos";
 import ListagemServicosMaisPrestados from "../negocio/listagemServicosMaisPrestados";
+import ListagemProdutosMaisConsumidosPorGenero from "../negocio/listagemProdutosMaisConsumidosPorGenero";
 
 
  
@@ -47,8 +48,9 @@ while (execucao) {
     console.log(`16 - Listar os dez clientes que mais consumiram produtos ou serviços em quantidade`);
     console.log(`17 - Listar os dez clientes que menos consumiram produtos ou serviços em quantidade`);
     console.log(`18 - Listar os cinco clientes que mais consumiram em valor`);
-    console.log(`19 - Listar os produtos mais consumidos.`);
-    console.log(`20 - Listar os serviços mais comprados.`);
+    console.log(`19 - Listar os produtos mais consumidos`);
+    console.log(`20 - Listar os serviços mais comprados`);
+    console.log(`21 - Listar o Produto e Serviço mais consumidos por gênero`)
 
     console.log(`0 - Sair`);
  
@@ -135,6 +137,10 @@ while (execucao) {
         case 20:
             let listagemServicosMaisPrestados = new ListagemServicosMaisPrestados(empresa.getServicos)
             listagemServicosMaisPrestados.listar()
+            break;
+        case 21:
+            let listagemProdutosMaisConsumidosPorGenero = new ListagemProdutosMaisConsumidosPorGenero(empresa.getProdutos)
+            listagemProdutosMaisConsumidosPorGenero.listar()
             break;
         case 0:
             execucao = false

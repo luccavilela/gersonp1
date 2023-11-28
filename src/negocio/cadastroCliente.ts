@@ -204,6 +204,3 @@ export default class CadastroCliente extends Cadastro {
     
 
 }
-
-
-//asidopfhadsogfhd8aufoiasdgfuiafa
