@@ -18,6 +18,8 @@ import RegistrarVendaServico from "../negocio/registrarVendaServico";
 import ListagemClientesMaisConsumo from "../negocio/listagemClientesMaisConsumo";
 import ListagemClientesMenosConsumo from "../negocio/listagemClientesMenosConsumo";
 import ListagemClientesMaisGasto from "../negocio/listagemClientesMaisGasto";
+import ListagemProdutosMaisVendidos from "../negocio/listagemProdutosMaisVendidos";
+import ListagemServicosMaisPrestados from "../negocio/listagemServicosMaisPrestados";
 
 
  
@@ -125,6 +127,14 @@ while (execucao) {
         case 18:
             let listagemClientesMaisGasto = new ListagemClientesMaisGasto(empresa.getClientes)
             listagemClientesMaisGasto.listar()
+            break;
+        case 19:
+            let listagemProdutosMaisVendidos = new ListagemProdutosMaisVendidos(empresa.getProdutos)
+            listagemProdutosMaisVendidos.listar()
+            break;
+        case 20:
+            let listagemServicosMaisPrestados = new ListagemServicosMaisPrestados(empresa.getServicos)
+            listagemServicosMaisPrestados.listar()
             break;
         case 0:
             execucao = false
