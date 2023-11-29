@@ -21,13 +21,18 @@ import ListagemClientesMaisGasto from "../negocio/listagemClientesMaisGasto";
 import ListagemProdutosMaisVendidos from "../negocio/listagemProdutosMaisVendidos";
 import ListagemServicosMaisPrestados from "../negocio/listagemServicosMaisPrestados";
 import ListagemProdutosMaisConsumidosPorGenero from "../negocio/listagemProdutosMaisConsumidosPorGenero";
+import InserirClientes from "../negocio/inserirClientes";
+import InserirProdutos from "../negocio/inserirProdutos";
 
 
  
 console.log(`Bem-vindo ao cadastro de clientes do Grupo World Beauty`)
 let empresa = new Empresa()
 let execucao = true
- 
+let inserirClientes = new InserirClientes(empresa.getClientes)
+let inserirProdutos = new InserirProdutos(empresa.getProdutos)
+inserirClientes.cadastrar()
+inserirProdutos.cadastrar()
 while (execucao) {
     console.log(`Opções:`);
     console.log(`1 - Cadastrar cliente`);
