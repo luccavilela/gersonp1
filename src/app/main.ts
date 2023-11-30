@@ -29,10 +29,7 @@ import InserirProdutos from "../negocio/inserirProdutos";
 console.log(`Bem-vindo ao cadastro de clientes do Grupo World Beauty`)
 let empresa = new Empresa()
 let execucao = true
-let inserirClientes = new InserirClientes(empresa.getClientes)
-let inserirProdutos = new InserirProdutos(empresa.getProdutos)
-inserirClientes.cadastrar()
-inserirProdutos.cadastrar()
+let naoInserido = true
 while (execucao) {
     console.log(`Opções:`);
     console.log(`1 - Cadastrar cliente`);
@@ -56,6 +53,9 @@ while (execucao) {
     console.log(`19 - Listar os produtos mais consumidos`);
     console.log(`20 - Listar os serviços mais comprados`);
     console.log(`21 - Listar o Produto e Serviço mais consumidos por gênero`)
+    if (naoInserido) {
+        console.log(`22 - Inserir 30 Clientes e 20 Produtos para testes`)
+    }
 
     console.log(`0 - Sair`);
  
@@ -146,6 +146,16 @@ while (execucao) {
         case 21:
             let listagemProdutosMaisConsumidosPorGenero = new ListagemProdutosMaisConsumidosPorGenero(empresa.getProdutos)
             listagemProdutosMaisConsumidosPorGenero.listar()
+            break;
+        case 22:
+            if (naoInserido){
+                let inserirClientes = new InserirClientes(empresa.getClientes)
+                let inserirProdutos = new InserirProdutos(empresa.getProdutos)
+                inserirClientes.cadastrar()
+                inserirProdutos.cadastrar()
+                naoInserido = false;
+                console.log(`Clientes e produtos inseridos com sucesso ! `);
+            }
             break;
         case 0:
             execucao = false
