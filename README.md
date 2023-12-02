@@ -8,7 +8,9 @@ Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em seu sistema. 
 
 ### 2. Compilar o TypeScript
 
-No diretório `atv1/`, execute o seguinte comando para compilar o código TypeScript:
+No diretório `atv1/`, execute os seguintes comandos para compilar o código TypeScript:
 
 ```bash
+npm install
 npx tsc
+node out/app/main.js
